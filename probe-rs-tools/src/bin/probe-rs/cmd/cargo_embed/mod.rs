@@ -305,6 +305,7 @@ async fn main_try(args: Vec<OsString>, config: Config, offset: UtcOffset) -> Res
             preverify: config.flashing.preverify,
             verify: config.flashing.verify,
             chip_erase: config.flashing.do_chip_erase,
+            skip_erase: false,
             read_flasher_rtt: config.flashing.read_flasher_rtt,
             prefer_flash_algorithm: Vec::new(),
         };

@@ -43,6 +43,13 @@ pub struct BinaryDownloadOptions {
     #[arg(long, help_heading = "DOWNLOAD CONFIGURATION")]
     pub chip_erase: bool,
 
+    /// Skip erasing entirely. Use this when the chip has already been erased
+    /// out-of-band (`probe-rs erase`) so the download only does page programming.
+    /// Useful as a recovery path on chips where the sector-erase code path of
+    /// the flash algorithm is flaky but the mass-erase command works.
+    #[arg(long, help_heading = "DOWNLOAD CONFIGURATION")]
+    pub skip_erase: bool,
+
     /// Whether to read the RTT output from the flash loader, if available.
     #[arg(long, help_heading = "DOWNLOAD CONFIGURATION")]
     pub read_flasher_rtt: bool,

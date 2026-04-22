@@ -358,7 +358,7 @@ pub async fn flash(
     let mut options = DownloadOptions {
         keep_unwritten_bytes: download_options.restore_unwritten,
         do_chip_erase: download_options.chip_erase,
-        skip_erase: false,
+        skip_erase: download_options.skip_erase,
         verify: download_options.verify,
         disable_double_buffering: download_options.disable_double_buffering,
         preferred_algos: download_options.prefer_flash_algorithm,
