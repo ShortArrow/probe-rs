@@ -308,7 +308,13 @@ impl Session {
                         .core(core_id)
                         .inspect_err(|e| tracing::error!("Unable to get core {core_id}: {e}"))?;
 
-                    core.wait_for_core_halted(Duration::from_millis(100))
+                    // unor4eth experiment (2026-04-22): bumped 100ms → 500ms.
+                    // RA4M1 misses the catch-on-reset within 100ms — possibly because
+                    // the SCS (DEMCR.VC_CORERESET) is wiped by SYSRESETn on this chip,
+                    // so the catch needs to re-arm post-deassert and the chip needs
+                    // longer to settle before C_HALT can land. If 500ms fixes it,
+                    // the right upstream fix is a Renesas-specific debug sequence.
+                    core.wait_for_core_halted(Duration::from_millis(500))
                         .inspect_err(|e| {
                             tracing::error!("Unable to wait for {core_id} halted: {e}")
                         })?;
